@@ -3,101 +3,100 @@ document.addEventListener("DOMContentLoaded", () => {
     const addToDoButton = document.getElementById("addToDo");
     const toDoContainer = document.getElementById("toDoContainer");
     const alertMessage = document.getElementById("alertMessage");
+    const taskCounter = document.getElementById("taskCounter");
+
     const celebrationScreen = document.getElementById("celebration-screen");
     const confettiCanvas = document.getElementById("confettiCanvas");
-    const taskCounter = document.getElementById("taskCounter");
-    const currentDate = document.getElementById("currentDate");
 
-    // Set current date
-    const now = new Date();
-    currentDate.innerText = now.toDateString();
+    // Set Date
+    document.getElementById("currentDate").innerText = new Date().toDateString();
 
     // Add task
-    addToDoButton.addEventListener("click", addItem);
-    inputField.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") addItem();
+    addToDoButton.addEventListener("click", addTask);
+    inputField.addEventListener("keypress", e => {
+        if (e.key === "Enter") addTask();
     });
 
-    function addItem() {
-        const taskText = inputField.value.trim();
-        if (taskText === "") {
+    function addTask() {
+        const text = inputField.value.trim();
+
+        if (text === "") {
             alertMessage.style.display = "block";
             return;
         }
         alertMessage.style.display = "none";
 
-        const taskItem = document.createElement("div");
-        taskItem.classList.add("item");
+        const item = document.createElement("div");
+        item.classList.add("item");
 
-        // Task text
-        const taskSpan = document.createElement("span");
-        taskSpan.innerText = taskText;
-        taskSpan.classList.add("task-text");
+        const span = document.createElement("span");
+        span.classList.add("task-text");
+        span.innerText = text;
 
-        // Strike-through toggle
-        taskSpan.addEventListener("click", () => {
-            taskSpan.classList.toggle("text-decoration-line-through");
+        span.addEventListener("click", () => {
+            span.classList.toggle("text-decoration-line-through");
             checkAllCompleted();
-            updateCounter();
         });
 
-        // Edit button
-        const editButton = document.createElement("button");
-        editButton.classList.add("btn", "btn-warning");
-        editButton.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+        const editBtn = document.createElement("button");
+        editBtn.classList.add("btn", "btn-warning", "me-2");
+        editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
 
-        // Delete button
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("btn", "btn-danger");
-        deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("btn", "btn-danger");
+        deleteBtn.innerHTML = `<i class="fa-solid fa-trash"></i>`;
 
-        // Append elements
-        taskItem.appendChild(taskSpan);
-        taskItem.appendChild(editButton);
-        taskItem.appendChild(deleteButton);
-        toDoContainer.appendChild(taskItem);
+        // Edit
+        editBtn.addEventListener("click", () => {
+            if (editBtn.innerHTML.includes("pencil")) {
+                editBtn.innerHTML = `<i class="fa-solid fa-check"></i>`;
 
-        inputField.value = "";
-        updateCounter();
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = span.innerText;
+                input.classList.add("form-control");
 
-        // Edit functionality
-        editButton.addEventListener("click", () => {
-            if (editButton.innerHTML.includes("pencil")) {
-                editButton.innerHTML = '<i class="fa-solid fa-check"></i>';
-                const editInput = document.createElement("input");
-                editInput.type = "text";
-                editInput.classList.add("form-control");
-                editInput.value = taskSpan.innerText;
-                taskItem.replaceChild(editInput, taskSpan);
-                editInput.focus();
+                item.replaceChild(input, span);
+                input.focus();
+
             } else {
-                editButton.innerHTML = '<i class="fa-solid fa-pencil"></i>';
-                const newText = taskItem.querySelector("input").value.trim();
-                taskSpan.innerText = newText || taskText;
-                taskItem.replaceChild(taskSpan, taskItem.querySelector("input"));
+                editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
+                const newText = item.querySelector("input").value.trim();
+
+                span.innerText = newText || text;
+                item.replaceChild(span, item.querySelector("input"));
             }
         });
 
-        // Delete functionality
-        deleteButton.addEventListener("click", () => {
-            taskItem.remove();
-            checkAllCompleted();
+        // Delete
+        deleteBtn.addEventListener("click", () => {
+            item.remove();
             updateCounter();
+            checkAllCompleted();
         });
+
+        item.appendChild(span);
+        item.appendChild(editBtn);
+        item.appendChild(deleteBtn);
+
+        toDoContainer.appendChild(item);
+        inputField.value = "";
+
+        updateCounter();
     }
 
     function updateCounter() {
-        const totalTasks = document.querySelectorAll(".item").length;
-        taskCounter.innerText = `Tasks: ${totalTasks}`;
+        const total = document.querySelectorAll(".item").length;
+        taskCounter.innerText = `Tasks: ${total}`;
     }
 
     function checkAllCompleted() {
         const allTasks = document.querySelectorAll(".task-text");
-        const allCompleted = Array.from(allTasks).every(task => task.classList.contains("text-decoration-line-through"));
+        const done = Array.from(allTasks).every(t =>
+            t.classList.contains("text-decoration-line-through")
+        );
 
-        if (allCompleted && allTasks.length > 0) {
-            showCelebration();
-        }
+        if (done && allTasks.length > 0) showCelebration();
     }
 
     function showCelebration() {
@@ -109,50 +108,77 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2500);
     }
 
-    // Simple Confetti Effect
     function launchConfetti() {
-        const ctx = confettiCanvas.getContext("2d");
-        confettiCanvas.width = window.innerWidth;
-        confettiCanvas.height = window.innerHeight;
-        let confettiParticles = [];
+    const ctx = confettiCanvas.getContext("2d");
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
 
-        for (let i = 0; i < 150; i++) {
-            confettiParticles.push({
-                x: Math.random() * confettiCanvas.width,
-                y: Math.random() * confettiCanvas.height,
-                r: Math.random() * 6 + 2,
-                d: Math.random() * 15,
-                color: `hsl(${Math.random() * 360}, 100%, 60%)`,
-                tilt: Math.random() * 10 - 10
-            });
+    let particles = [];
+
+    // Create 250 confetti particles
+    for (let i = 0; i < 250; i++) {
+
+        // random starting positions (top, left, or right)
+        let startX;
+        let startY;
+
+        const side = Math.floor(Math.random() * 3); 
+        // 0 = top, 1 = left, 2 = right
+
+        if (side === 0) { 
+            startX = Math.random() * confettiCanvas.width; 
+            startY = -20;
+        } 
+        else if (side === 1) { 
+            startX = -20;
+            startY = Math.random() * confettiCanvas.height;
+        } 
+        else { 
+            startX = confettiCanvas.width + 20;
+            startY = Math.random() * confettiCanvas.height;
         }
 
-        function draw() {
-            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-            confettiParticles.forEach(p => {
-                ctx.beginPath();
-                ctx.lineWidth = p.r;
-                ctx.strokeStyle = p.color;
-                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
-                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
-                ctx.stroke();
-            });
-            update();
-        }
+        particles.push({
+            x: startX,
+            y: startY,
+            r: Math.random() * 6 + 4,
+            color: `hsl(${Math.random() * 360}, 100%, 60%)`,
 
-        function update() {
-            confettiParticles.forEach(p => {
-                p.y += Math.cos(0.01 + p.d) + 2 + p.r / 2;
-                p.x += Math.sin(0.01) * 2;
-                p.tilt += 0.1;
-                if (p.y > confettiCanvas.height) {
-                    p.y = -10;
-                    p.x = Math.random() * confettiCanvas.width;
-                }
-            });
-        }
-
-        let confettiInterval = setInterval(draw, 20);
-        setTimeout(() => clearInterval(confettiInterval), 2500);
+            // random falling direction
+            vx: (Math.random() - 0.5) * 8,  // horizontal movement  
+            vy: Math.random() * 8 + 4,      // vertical speed (fast)
+        });
     }
+
+    function draw() {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+        particles.forEach(p => {
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.r, p.r); // SQUARE confetti
+        });
+
+        update();
+    }
+
+    function update() {
+        particles.forEach(p => {
+            p.x += p.vx; // natural left-right fall
+            p.y += p.vy; // downward velocity
+
+            // Respawn when out of screen
+            if (
+                p.x < -50 || 
+                p.x > confettiCanvas.width + 50 || 
+                p.y > confettiCanvas.height + 50
+            ) {
+                p.x = Math.random() * confettiCanvas.width;
+                p.y = -20;
+            }
+        });
+    }
+
+    let interval = setInterval(draw, 20);
+    setTimeout(() => clearInterval(interval), 4000); // 4 sec confetti
+}
 });

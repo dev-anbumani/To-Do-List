@@ -11,7 +11,7 @@
 <body>
     <div class="app-bg">
         <div class="app-container">
-            <!-- Header with date & motivational message -->
+
             <header class="app-header">
                 <h1 class="app-title">To-Do List</h1>
                 <p class="app-date" id="currentDate"></p>
@@ -22,22 +22,23 @@
             <!-- Input Card -->
             <div class="todo-card">
                 <div class="todo-input-wrapper">
-                    <input type="text" id="inputField" placeholder="What’s your next task?">
-                    <button id="addToDo"><i class="fa-solid fa-plus"></i></button>
+                    <input type="text" id="inputField" placeholder="What’s next?">
+                    <button id="addToDo" class="input-floating-btn">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
                 </div>
+
                 <div class="alert-message" id="alertMessage">Please enter a task!</div>
                 <div class="todo-list" id="toDoContainer"></div>
             </div>
         </div>
     </div>
 
-    <!-- Celebration Overlay with Confetti -->
     <div id="celebration-screen">
         <h1 class="celebration-text">🎉YOU DID IT🎉</h1>
         <canvas id="confettiCanvas"></canvas>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
