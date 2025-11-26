@@ -4,24 +4,41 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>To-Do List</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+  <!-- Google Font for ancient style -->
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
   <div class="app-bg">
     <div class="app-container">
-      <header class="app-header">
-        <h1 class="app-title">To-Do List</h1>
-        <p class="app-date" id="currentDate">
-  <span class="month">Nov</span>
-  <span class="day">26</span>
-  <span class="year">2025</span>
-</p>
 
-        <p class="app-motivation">"Stay Productive, Stay Amazing!"</p>
-        <p class="task-counter" id="taskCounter">Tasks: 0</p>
+      <header class="app-header" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <h1 class="app-title">To-Do List</h1>
+
+        <!-- Search emoji button -->
+        <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#infoModal" aria-label="Why To-Do Lists Are Important" >
+          🔍
+        </button>
       </header>
+
+      <p class="app-date" id="currentDate">
+        <span class="month">Nov</span>
+        <span class="day">26</span>
+        <span class="year">2025</span>
+      </p>
+
+      <p class="app-motivation">"Stay Productive, Stay Amazing!"</p>
+      <p class="task-counter" id="taskCounter">Tasks: 0</p>
 
       <div class="todo-card">
         <div class="todo-input-wrapper">
@@ -32,14 +49,106 @@
         <div class="alert-message" id="alertMessage">Please enter a task!</div>
         <div class="todo-list" id="toDoContainer"></div>
       </div>
+
     </div>
   </div>
 
-  <!-- Celebration overlay (canvas + text) -->
+  <!-- Celebration -->
   <div id="celebration-screen" aria-hidden="true">
     <canvas id="fireworksCanvas"></canvas>
     <div class="celebration-text">You Did It!💖</div>
   </div>
+
+  <!-- Floating Help Button (ONLY ONE NEEDED) -->
+  <button class="help-float-btn" data-bs-toggle="modal" data-bs-target="#howToUseModal">
+    <i class="fa-solid fa-question"></i>
+  </button>
+
+  <!-- How To Use Modal -->
+  <div class="modal fade" id="howToUseModal" tabindex="-1" aria-labelledby="howToUseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content how-modal-content">
+
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="howToUseModalLabel">How To Use</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <div id="tutorialCarousel" class="carousel slide" data-bs-interval="false">
+
+            <div class="carousel-inner">
+
+              <!-- Step 1 -->
+              <div class="carousel-item active">
+                <h4>Step 1: Add Your Tasks</h4>
+                <p>Type what you need to do and press the <b>Plus (+)</b> button.  
+                  Every time you add something, your <b>task count increases</b>.</p>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="carousel-item">
+                <h4>Step 2: Complete Tasks</h4>
+                <p>Tap any task to <b>mark it as completed</b>.  
+                  Completed tasks will get a strike-through.</p>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="carousel-item">
+                <h4>Step 3: Edit or Delete Tasks</h4>
+                <p>If you want to update or remove a task,  
+                  use the <b>edit (✏️)</b> or <b>delete (🗑️)</b> buttons.</p>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="carousel-item">
+                <h4>Step 4: You’re Done! 🎉</h4>
+                <p>When all tasks are completed, you will see a  
+                  <b>“You Did It!” celebration screen</b> as your reward!</p>
+              </div>
+
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Modal for Search Emoji -->
+  <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content how-modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="infoModalLabel">Why To-Do Lists Matter</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>To-Do Lists help organize your day, reduce stress, and increase productivity. Writing tasks down gives clarity and focus.</p>
+          <ul>
+            <li>Break big tasks into smaller steps</li>
+            <li>Track progress and celebrate wins</li>
+            <li>Prioritize important tasks</li>
+            <li>Reduce forgetfulness and mental clutter</li>
+          </ul>
+          <p>Start your day with a plan, and finish with a feeling of achievement!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="script.js"></script>
 </body>

@@ -271,6 +271,54 @@ dateEl.innerHTML = `<span class="month">${month}</span><span class="day">${day}<
     // start drawing
     rafId = requestAnimationFrame(loop);
   }
-
+  
   // End of script
 });
+
+/* -----------------------------------------------------
+   HOW-TO-USE MODAL + ONBOARDING LOGIC  
+----------------------------------------------------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const howToUseModal = new bootstrap.Modal(document.getElementById('howToUseModal'));
+  const infoIcon = document.getElementById("infoIcon");
+  const helpFloatBtn = document.getElementById("helpFloatBtn");
+
+  /* ---------------------------------------------
+     1️⃣  OPEN MODAL WHEN USER CLICKS INFO ICON
+  ---------------------------------------------- */
+  infoIcon.addEventListener("click", () => {
+    howToUseModal.show();
+  });
+
+  /* ---------------------------------------------
+     2️⃣  OPEN MODAL WHEN USER CLICKS FLOATING HELP BUTTON
+  ---------------------------------------------- */
+  helpFloatBtn.addEventListener("click", () => {
+    howToUseModal.show();
+  });
+
+  /* ---------------------------------------------
+     3️⃣  AUTO-SHOW MODAL ON FIRST VISIT ONLY
+  ---------------------------------------------- */
+  if (!localStorage.getItem("todo_first_time_help")) {
+    setTimeout(() => {
+      howToUseModal.show();
+    }, 600);
+
+    localStorage.setItem("todo_first_time_help", "true");
+  }
+
+  /* ---------------------------------------------
+     OPTIONAL: FLOAT BUTTON BOUNCE ANIMATION
+  ---------------------------------------------- */
+  setTimeout(() => {
+    helpFloatBtn.style.transition = "transform 0.25s ease";
+    helpFloatBtn.style.transform = "scale(1.15)";
+    setTimeout(() => {
+      helpFloatBtn.style.transform = "scale(1)";
+    }, 250);
+  }, 1500);
+});
+

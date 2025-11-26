@@ -45,10 +45,14 @@ body {
 
 /* Header */
 .app-header {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;  /* Prevent wrapping */
+  white-space: nowrap; /* Keep text and emoji on same line */
 }
+
 
 .app-title {
   font-size: 2rem;
@@ -285,3 +289,202 @@ body {
   white-space: nowrap;
   transform: translateZ(0);
 }
+
+/* FLOATING HELP BUTTON */
+.help-float-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4cff, #9b33ff);
+  border: none;
+  color: white;
+  font-size: 1.7rem;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 0 15px #d47affaa, 0 0 25px #bb50ff88;
+  transition: 0.25s ease;
+}
+
+.help-float-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #e78bffaa, 0 0 40px #b55dffcc;
+}
+
+/* MODAL STYLING */
+.how-modal-content {
+  background: #2b0057;
+  color: white;
+  border-radius: 15px;
+  padding-bottom: 10px;
+  box-shadow: 0 0 20px #b36affaa;
+}
+
+.modal-header .btn-close-white {
+  filter: invert(1);
+}
+
+/* CAROUSEL (Onboarding Steps) */
+.carousel-item {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.carousel-item h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffbaff;
+  text-shadow: 0 0 10px #ff97ff;
+  padding-bottom: 10px;
+}
+
+.carousel-item p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Carousel Controls */
+.carousel-controls button {
+  background: none;
+  border: none;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1) drop-shadow(0 0 6px #ff99ff);
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  filter: invert(1) drop-shadow(0 0 10px #ffccff);
+}
+
+/* RESPONSIVE FIXES */
+@media (max-width: 500px) {
+  .help-float-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
+
+  .carousel-item h4 {
+    font-size: 1.15rem;
+  }
+}
+
+
+/* ANCIENT INFO BANNER (top) */
+.ancient-info-banner {
+  font-family: 'Uncial Antiqua', serif;
+  font-size: 2rem;
+  color: #a37fff;
+  background: rgba(30, 8, 50, 0.7);
+  text-align: center;
+  padding: 8px 0;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  box-shadow:
+    0 0 12px #8a63ffaa,
+    inset 0 0 10px #b59fff88;
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Underline on hover/focus */
+.ancient-info-banner:hover,
+.ancient-info-banner:focus {
+  border-bottom-color: #d3b2ff;
+  outline: none;
+}
+
+/* ANCIENT INFO MODAL */
+.ancient-modal-content {
+  background: #3e187d;
+  color: #d7caff;
+  border-radius: 18px;
+  padding: 20px 30px;
+  font-family: 'Uncial Antiqua', serif;
+  box-shadow: 0 0 40px #a187ffcc;
+}
+
+.ancient-modal-content .modal-header {
+  border-bottom: none;
+}
+
+.ancient-modal-content .modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow:
+    0 0 5px #c8baff,
+    0 0 10px #a38aff;
+}
+
+.ancient-modal-content .modal-body {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #eee6ff;
+  padding-top: 10px;
+}
+
+.ancient-modal-content .modal-body ul {
+  margin: 12px 0 18px 18px;
+}
+
+.ancient-modal-content .modal-body ul li {
+  margin-bottom: 8px;
+  list-style-type: square;
+  color: #d1baff;
+}
+
+/* Responsive tweak for ancient modal */
+@media (max-width: 500px) {
+  .ancient-info-banner {
+    font-size: 1.7rem;
+    padding: 6px 0;
+  }
+
+  .ancient-modal-content {
+    padding: 15px 20px;
+  }
+
+  .ancient-modal-content .modal-title {
+    font-size: 1.6rem;
+  }
+
+  .ancient-modal-content .modal-body {
+    font-size: 1rem;
+  }
+}
+
+
+/* Search emoji button next to header title */
+.app-header button.btn-link {
+  font-size: 1.8rem;
+  color: #d4b6ff;
+  user-select: none;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.app-header button.btn-link:hover,
+.app-header button.btn-link:focus {
+  color: #ffbaff;
+  outline: none;
+  text-shadow: 0 0 6px #ffbaff;
+}
+
+
