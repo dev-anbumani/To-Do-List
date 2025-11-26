@@ -1,7 +1,3 @@
-/* script.js — Premium heart fireworks + glitter hearts + heart trails + pop sound.
-   Celebration stays 4s, animations fast. Mobile-friendly.
-*/
-
 document.addEventListener("DOMContentLoaded", () => {
   // App DOM
   const inputField = document.getElementById("inputField");
@@ -14,7 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctx = canvas.getContext("2d");
 
   // Set date
-  document.getElementById("currentDate").innerText = new Date().toDateString();
+const dateEl = document.getElementById("currentDate");
+const now = new Date();
+
+const optionsMonth = { month: 'short' };
+const optionsYear = { year: 'numeric' };
+const optionsDay = { day: 'numeric' };
+
+const month = now.toLocaleDateString('en-US', optionsMonth);
+const day = now.toLocaleDateString('en-US', optionsDay);
+const year = now.toLocaleDateString('en-US', optionsYear);
+
+dateEl.innerHTML = `<span class="month">${month}</span><span class="day">${day}</span><span class="year">${year}</span>`;
+
+
 
   // Basic to-do app behavior (add/edit/delete)
   addToDoButton.addEventListener("click", addTask);
@@ -28,7 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = document.createElement("div"); item.className = "item";
     const span = document.createElement("span"); span.className = "task-text"; span.innerText = text;
 
-    span.addEventListener("click", () => { span.classList.toggle("text-decoration-line-through"); checkAllCompleted(); });
+    span.addEventListener("click", () => { 
+      span.classList.toggle("text-decoration-line-through"); 
+      checkAllCompleted(); 
+    });
 
     const editBtn = document.createElement("button"); editBtn.className = "btn btn-warning me-2";
     editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
@@ -38,8 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
     editBtn.addEventListener("click", () => {
       if (editBtn.innerHTML.includes("pencil")) {
         editBtn.innerHTML = `<i class="fa-solid fa-check"></i>`;
-        const input = document.createElement("input"); input.type = "text"; input.value = span.innerText; input.className = "form-control";
-        item.replaceChild(input, span); input.focus();
+        const input = document.createElement("input"); 
+        input.type = "text"; 
+        input.value = span.innerText; 
+        input.className = "form-control";
+        item.replaceChild(input, span); 
+        input.focus();
       } else {
         editBtn.innerHTML = `<i class="fa-solid fa-pencil"></i>`;
         const newText = item.querySelector("input").value.trim();
@@ -48,14 +64,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    deleteBtn.addEventListener("click", () => { item.remove(); updateCounter(); checkAllCompleted(); });
+    deleteBtn.addEventListener("click", () => { 
+      item.remove(); 
+      updateCounter(); 
+      checkAllCompleted(); 
+    });
 
-    item.appendChild(span); item.appendChild(editBtn); item.appendChild(deleteBtn);
-    toDoContainer.appendChild(item); inputField.value = ""; updateCounter();
+    item.appendChild(span); 
+    item.appendChild(editBtn); 
+    item.appendChild(deleteBtn);
+    toDoContainer.appendChild(item); 
+    inputField.value = ""; 
+    updateCounter();
   }
 
   function updateCounter() {
-    const total = document.querySelectorAll(".item").length; taskCounter.innerText = `Tasks: ${total}`;
+    const total = document.querySelectorAll(".item").length; 
+    taskCounter.innerText = `Tasks: ${total}`;
   }
 
   function checkAllCompleted() {
@@ -70,14 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // show overlay
     celebrationScreen.style.display = "flex";
     resizeCanvas();
-    playPopSound();            // soft pop sound
     startPremiumFireworks();   // start animation
     // hide after 4s exactly
     setTimeout(() => {
       cancelAnimationFrame(rafId);
       clearCanvas();
       celebrationScreen.style.display = "none";
-    }, 4000);
+    }, 2000);
   }
 
   // canvas resizing helper
@@ -91,29 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => { if (celebrationScreen.style.display === "flex") resizeCanvas(); });
 
   function clearCanvas() { ctx.clearRect(0,0,canvas.width,canvas.height); }
-
-  // soft pop sound using WebAudio
-  function playPopSound() {
-    try {
-      const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
-      const o = ctxAudio.createOscillator();
-      const g = ctxAudio.createGain();
-      o.type = "triangle";
-      o.frequency.value = 600; // soft pop pitch
-      g.gain.value = 0;
-      o.connect(g); g.connect(ctxAudio.destination);
-      const now = ctxAudio.currentTime;
-      // quick envelope for pop
-      g.gain.setValueAtTime(0, now);
-      g.gain.linearRampToValueAtTime(0.18, now + 0.01);
-      g.gain.linearRampToValueAtTime(0.05, now + 0.08);
-      g.gain.linearRampToValueAtTime(0, now + 0.12);
-      o.start(now); o.stop(now + 0.13);
-    } catch (e) {
-      // Audio API may be blocked on some browsers — ignore gracefully
-      // console.warn("Audio not available", e);
-    }
-  }
 
   // ---------- Particles system (fast, premium) ----------
   function startPremiumFireworks() {
@@ -165,8 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const svy = (Math.random()-0.5)*6;
         particles.push({ x:sx, y:sy, vx:svx, vy:svy, size: Math.random()*2+1, life:0.9, fade:0.03, hue: 290 + Math.random()*120 });
       }
-      // play pop for each burst (soft)
-      playPopSound();
     }
 
     // glitter heart shape spawns (bigger hearts, slower fade)

@@ -56,13 +56,41 @@ body {
   color: #f884f8;
 }
 
-.app-date,
 .app-motivation,
 .task-counter {
   font-size: 0.9rem;
   color: #fff;
   margin: 2px 0;
 }
+
+.app-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #d4b6ff;
+  user-select: none;
+}
+
+.app-date .month,
+.app-date .year {
+  font-size: 1rem;
+  color: #b497f7;
+}
+
+.app-date .day {
+  font-size: 1.5rem;     
+  font-weight: 800;    
+  color: #fff;
+  background: linear-gradient(145deg, #f679ff, #d67aff);
+  padding: 6px 12px;   
+  border-radius: 12px;
+  box-shadow: 0 0 12px #f679ff88;  
+  user-select: text;
+}
+
 
 /* Card */
 .todo-card {
