@@ -80,6 +80,7 @@ body {
 #inputField {
     width: 100%;
     padding: 12px 55px 12px 15px;
+    margin-bottom: 12px;
     border-radius: 12px;
     border: none;
     background: rgba(255, 255, 255, 0.15);
@@ -100,8 +101,8 @@ body {
 
 #addToDo {
     position: absolute;
-    right: 10px;
-    top: 50%;
+    right: 7px;
+    top: 40%;
     transform: translateY(-50%);
 
     width: 40px;
@@ -140,7 +141,7 @@ body {
 .todo-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     max-height: 50vh;
     overflow-y: auto;
 }
@@ -160,7 +161,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background: rgba(180, 120, 250, 0.3);
-    padding: 12px 15px;
+    padding: 10px 15px;
     border-radius: 15px;
     color: #fff;
     transition: 0.3s, transform 0.4s;
@@ -198,7 +199,7 @@ body {
     left:0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.95);
+    background: rgb(0, 0, 0);
     backdrop-filter: blur(6px);
     justify-content: center;
     align-items: center;
@@ -209,12 +210,9 @@ body {
 .celebration-text {
     font-size: 3.5rem;
     font-weight: 900;
-    color: #ffb6ff;
-    text-shadow: 
-        0 0 20px #ff8aff,
-        0 0 40px #c77dff,
-        0 0 70px #ff8aff;
-
+    color: #ffb6ff; 
+    white-space: nowrap;
+    text-align: center;
     animation: neonGlow 1.4s infinite alternate ease-in-out;
 }
 
