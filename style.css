@@ -49,8 +49,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  flex-wrap: nowrap;  /* Prevent wrapping */
-  white-space: nowrap; /* Keep text and emoji on same line */
+  flex-wrap: nowrap;  
+  white-space: nowrap; 
 }
 
 
@@ -124,7 +124,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Input wrapper (floating plus inside) */
+/* Input wrapper */
 .todo-input-wrapper {
   position: relative;
   width: 100%;
@@ -341,7 +341,7 @@ body {
 }
 
 .carousel-item p {
-  font-size: 1rem;
+  font-size: 0.8rem;
   opacity: 0.9;
 }
 
@@ -351,15 +351,63 @@ body {
   border: none;
 }
 
+/* Make carousel arrow icons fully invisible but still clickable */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(1) drop-shadow(0 0 6px #ff99ff);
+    background-image: none !important;
+    width: 0;
+    height: 0;
+    opacity: 0;
 }
 
-.carousel-control-prev-icon:hover,
-.carousel-control-next-icon:hover {
-  filter: invert(1) drop-shadow(0 0 10px #ffccff);
+
+/* Ensure modal body has room at bottom for indicator */
+.modal-body {
+  position: relative;   
+  padding-bottom: 60px; 
 }
+
+/* Step indicator: centered straight-line bars */
+.step-indicator {
+  margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* small bars */
+.step-indicator .line {
+  width: 22px;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.35);
+  transition: background 0.25s ease, width 0.25s ease;
+  cursor: pointer;
+}
+
+/* active step*/
+.step-indicator .line.active {
+  width: 34px;
+  background: #ffffff;
+}
+
+/* keyboard focus styling for accessibility */
+.step-indicator .line:focus {
+  outline: 2px solid rgba(255,255,255,0.18);
+  outline-offset: 3px;
+}
+
+/* responsive tweak if modal is small */
+@media (max-width: 480px) {
+  .step-indicator .line { width: 18px; height: 4px; }
+  .step-indicator .line.active { width: 28px; }
+  .modal-body { padding-bottom: 66px; }
+}
+
 
 /* RESPONSIVE FIXES */
 @media (max-width: 500px) {
@@ -371,98 +419,6 @@ body {
 
   .carousel-item h4 {
     font-size: 1.15rem;
-  }
-}
-
-
-/* ANCIENT INFO BANNER (top) */
-.ancient-info-banner {
-  font-family: 'Uncial Antiqua', serif;
-  font-size: 2rem;
-  color: #a37fff;
-  background: rgba(30, 8, 50, 0.7);
-  text-align: center;
-  padding: 8px 0;
-  cursor: pointer;
-  user-select: none;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease;
-  box-shadow:
-    0 0 12px #8a63ffaa,
-    inset 0 0 10px #b59fff88;
-  z-index: 10000;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 420px;
-}
-
-/* Underline on hover/focus */
-.ancient-info-banner:hover,
-.ancient-info-banner:focus {
-  border-bottom-color: #d3b2ff;
-  outline: none;
-}
-
-/* ANCIENT INFO MODAL */
-.ancient-modal-content {
-  background: #3e187d;
-  color: #d7caff;
-  border-radius: 18px;
-  padding: 20px 30px;
-  font-family: 'Uncial Antiqua', serif;
-  box-shadow: 0 0 40px #a187ffcc;
-}
-
-.ancient-modal-content .modal-header {
-  border-bottom: none;
-}
-
-.ancient-modal-content .modal-title {
-  font-size: 2rem;
-  font-weight: 700;
-  text-shadow:
-    0 0 5px #c8baff,
-    0 0 10px #a38aff;
-}
-
-.ancient-modal-content .modal-body {
-  font-family: Georgia, serif;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #eee6ff;
-  padding-top: 10px;
-}
-
-.ancient-modal-content .modal-body ul {
-  margin: 12px 0 18px 18px;
-}
-
-.ancient-modal-content .modal-body ul li {
-  margin-bottom: 8px;
-  list-style-type: square;
-  color: #d1baff;
-}
-
-/* Responsive tweak for ancient modal */
-@media (max-width: 500px) {
-  .ancient-info-banner {
-    font-size: 1.7rem;
-    padding: 6px 0;
-  }
-
-  .ancient-modal-content {
-    padding: 15px 20px;
-  }
-
-  .ancient-modal-content .modal-title {
-    font-size: 1.6rem;
-  }
-
-  .ancient-modal-content .modal-body {
-    font-size: 1rem;
   }
 }
 
@@ -486,5 +442,3 @@ body {
   outline: none;
   text-shadow: 0 0 6px #ffbaff;
 }
-
-

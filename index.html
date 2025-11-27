@@ -11,9 +11,6 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
-  <!-- Google Font for ancient style -->
-  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -59,71 +56,76 @@
     <div class="celebration-text">You Did It!💖</div>
   </div>
 
-  <!-- Floating Help Button (ONLY ONE NEEDED) -->
-  <button class="help-float-btn" data-bs-toggle="modal" data-bs-target="#howToUseModal">
-    <i class="fa-solid fa-question"></i>
-  </button>
+<!-- Floating Help Button -->
+<button class="help-float-btn" data-bs-toggle="modal" data-bs-target="#howToUseModal">
+  <i class="fa-solid fa-question"></i>
+</button>
 
-  <!-- How To Use Modal -->
-  <div class="modal fade" id="howToUseModal" tabindex="-1" aria-labelledby="howToUseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content how-modal-content">
+<!-- How To Use Modal -->
+<div class="modal fade" id="howToUseModal" tabindex="-1" aria-labelledby="howToUseModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content how-modal-content">
 
-        <div class="modal-header border-0">
-          <h5 class="modal-title" id="howToUseModalLabel">How To Use</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+      <div class="modal-header border-0">
+        <h6 class="modal-title" id="howToUseModalLabel">How To Use</h6>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-        <div class="modal-body">
+      <div class="modal-body">
+        <div id="tutorialCarousel" class="carousel slide" data-bs-interval="false">
+          <div class="carousel-inner">
 
-          <div id="tutorialCarousel" class="carousel slide" data-bs-interval="false">
-
-            <div class="carousel-inner">
-
-              <!-- Step 1 -->
-              <div class="carousel-item active">
-                <h4>Step 1: Add Your Tasks</h4>
-                <p>Type what you need to do and press the <b>Plus (+)</b> button.  
-                  Every time you add something, your <b>task count increases</b>.</p>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="carousel-item">
-                <h4>Step 2: Complete Tasks</h4>
-                <p>Tap any task to <b>mark it as completed</b>.  
-                  Completed tasks will get a strike-through.</p>
-              </div>
-
-              <!-- Step 3 -->
-              <div class="carousel-item">
-                <h4>Step 3: Edit or Delete Tasks</h4>
-                <p>If you want to update or remove a task,  
-                  use the <b>edit (✏️)</b> or <b>delete (🗑️)</b> buttons.</p>
-              </div>
-
-              <!-- Step 4 -->
-              <div class="carousel-item">
-                <h4>Step 4: You’re Done! 🎉</h4>
-                <p>When all tasks are completed, you will see a  
-                  <b>“You Did It!” celebration screen</b> as your reward!</p>
-              </div>
-
+            <!-- Step 1 -->
+            <div class="carousel-item active">
+              <h4>Step 1: Add Your Tasks</h4>
+              <p>Type what you need to do and press the <b>Plus (+)</b> button. Every time you add something, your <b>task count increases</b>.</p>
             </div>
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-            </button>
+            <!-- Step 2 -->
+            <div class="carousel-item">
+              <h4>Step 2: Complete Tasks</h4>
+              <p>Tap any task to <b>mark it as completed</b>. Completed tasks will get a strike-through.</p>
+            </div>
 
-            <button class="carousel-control-next" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon"></span>
-            </button>
+            <!-- Step 3 -->
+            <div class="carousel-item">
+              <h4>Step 3: Edit or Delete Tasks</h4>
+              <p>If you want to update or remove a task, use the <b>edit (✏️)</b> or <b>delete (🗑️)</b> buttons.</p>
+            </div>
 
+            <!-- Step 4 -->
+            <div class="carousel-item">
+              <h4>Step 4: You’re Done! 🎉</h4>
+              <p>When all tasks are completed, you will see a <b>“You Did It!” celebration screen</b> as your reward!</p>
+            </div>
+
+          </div> <!-- /.carousel-inner -->
+
+          <!-- STEP INDICATOR (centered below content) -->
+          <div class="step-indicator" role="tablist" aria-label="Tutorial steps">
+            <div class="line active" data-slide-to="0" role="button" tabindex="0" aria-label="Step 1"></div>
+            <div class="line" data-slide-to="1" role="button" tabindex="0" aria-label="Step 2"></div>
+            <div class="line" data-slide-to="2" role="button" tabindex="0" aria-label="Step 3"></div>
+            <div class="line" data-slide-to="3" role="button" tabindex="0" aria-label="Step 4"></div>
           </div>
-        </div>
 
-      </div>
+          <!-- Controls (left/right) -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+
+          <button class="carousel-control-next" type="button" data-bs-target="#tutorialCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+
+        </div> <!-- /.carousel -->
+      </div> <!-- /.modal-body -->
+
     </div>
   </div>
+</div>
 
   <!-- Info Modal for Search Emoji -->
   <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
